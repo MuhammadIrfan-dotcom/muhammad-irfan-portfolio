@@ -1,0 +1,12 @@
+node_modules
+.vercel
+.vercel-cli
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+assets/upwork.html
+assets/upwork-profile.html
+
+.vercel

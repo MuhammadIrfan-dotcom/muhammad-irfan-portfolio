@@ -1,0 +1,4 @@
+﻿.vercel-cli
+.vercel
+node_modules
+.git

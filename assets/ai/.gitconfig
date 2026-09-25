@@ -1,0 +1,10 @@
+[user]
+	email = 136381777+MuhammadIrfan-dotcom@users.noreply.github.com
+	name = Muhammad Irfan
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
