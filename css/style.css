@@ -380,7 +380,7 @@ section { padding: 72px 6%; }
 }
 .social {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 10px;
   margin-top: 18px;
   margin-bottom: 4px;
@@ -413,7 +413,7 @@ section { padding: 72px 6%; }
 }
 .hero-socials {
   display: grid;
-  grid-template-columns: repeat(6, 46px);
+  grid-template-columns: repeat(7, 46px);
   gap: 10px;
   margin-top: 28px;
   width: max-content;
@@ -463,6 +463,8 @@ section { padding: 72px 6%; }
 }
 .social a[aria-label="LinkedIn"]:hover,
 .hero-socials a[aria-label="LinkedIn"]:hover { background: #0a66c2; }
+.social a[aria-label="GitHub"]:hover,
+.hero-socials a[aria-label="GitHub"]:hover { background: #24292f; }
 .social a[aria-label="Upwork"]:hover,
 .hero-socials a[aria-label="Upwork"]:hover { background: #14a800; }
 .social a[aria-label="Instagram"]:hover,
