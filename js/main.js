@@ -148,7 +148,9 @@
   }
 
   if (form) {
-    form.addEventListener("submit", (e) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = new FormData(form);
       const name = String(data.get("name") || "").trim();
@@ -157,27 +159,47 @@
       const message = String(data.get("message") || "").trim();
       if (!name || !email || !phone || !message) return;
 
-      const plain = `New portfolio inquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nProject:\n${message}`;
-      const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
-      const body = encodeURIComponent(plain);
-      const waText = encodeURIComponent(plain);
-
-      // Email + WhatsApp together
-      const mail = document.createElement("a");
-      mail.href = `mailto:mirfanmanzoor238@gmail.com?subject=${subject}&body=${body}`;
-      mail.style.display = "none";
-      document.body.appendChild(mail);
-      mail.click();
-      mail.remove();
-
-      window.open(`https://wa.me/923061844238?text=${waText}`, "_blank", "noopener,noreferrer");
-
       if (note) {
         note.hidden = false;
-        note.textContent = "Opening Email and WhatsApp…";
+        note.textContent = "";
+        note.style.color = "";
       }
-      form.reset();
-      openSuccessModal();
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const res = await fetch("https://formsubmit.co/ajax/mirfanmanzoor238@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            message,
+            _subject: `Portfolio inquiry from ${name}`,
+            _template: "table",
+            _captcha: "false",
+          }),
+        });
+
+        const result = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(result.message || "Send failed");
+
+        form.reset();
+        if (note) note.hidden = true;
+        openSuccessModal();
+      } catch (err) {
+        if (note) {
+          note.hidden = false;
+          note.style.color = "#ff8a8a";
+          note.textContent =
+            "Could not send. Please try again or email mirfanmanzoor238@gmail.com.";
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 })();
